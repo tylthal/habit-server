@@ -1,6 +1,7 @@
 *.js
 *.js.map
-/node_modules
-npm-debug.log
 
-!bs-config.js
+/node_modules
+/typings
+
+npm-debug.log
