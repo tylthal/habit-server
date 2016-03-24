@@ -1,6 +1,6 @@
 import express = require('express');
 import GitKitClient = require('gitkitclient');
-//import * as GitKitClient from './node_modules/gitkitclient/lib/gitkitclient.js';
+import fs = require('fs');
 
 //declare var GitKitClient: any;
 
@@ -8,13 +8,25 @@ import GitKitClient = require('gitkitclient');
 
 var port = 3003;
 var app = express();
-//var gitkitClient = new GitKitClient({});
+var gitkitClient = new GitKitClient(JSON.parse(fs.readFileSync('./gitkit-server-config.json', 'utf-8')));
+gitkitClient.getAccountByEmail({"email":"tyler.thalman@gmail.com"}, function(error, result) {
+    if(error) {
+      console.log(error);
+    } else {
+      console.log(result);
+    }
+});
+
 
 app.get('/', function (req, res) {
   res.send('Test');
 });
 
 app.get('/validateuser', function(req, res) {
+
+});
+
+app.get('/callback', function(req, res) {
 
 });
 

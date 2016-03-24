@@ -1,8 +1,8 @@
 {
   "clientId": "525264450960-nrukcphrqheak0qvqqe6s3d52o2qf2a4.apps.googleusercontent.com",
   "projectId": "habit-tracker-1231",
-  "serviceAccountEmail": "",
-  "serviceAccountPrivateKeyFile": "key/habit-tracker-0b86a088d086.pem",
+  "serviceAccountEmail": "habit-tracker-1231@appspot.gserviceaccount.com",
+  "serviceAccountPrivateKeyFile": "./key/habit-tracker-0b86a088d086.pem",
   "widgetUrl": "http://localhost:3000/callback",
   "cookieName": "gtoken"
 }
