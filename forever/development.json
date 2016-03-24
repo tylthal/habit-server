@@ -1,0 +1,6 @@
+{
+  "script": "app.js",
+  "watch": true,
+  "sourceDir": "./",
+  "watchDirectory": "./"
+}
