@@ -1,3 +1,1 @@
 # habit-server
-
-notasecret
