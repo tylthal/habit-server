@@ -2,6 +2,7 @@
   "clientId": "525264450960-nrukcphrqheak0qvqqe6s3d52o2qf2a4.apps.googleusercontent.com",
   "projectId": "habit-tracker-1231",
   "serviceAccountEmail": "backend@habit-tracker-1231.iam.gserviceaccount.com",
+  "pemFile": "./key/habit-tracker-5d02de6bf4e4.pem",
   "widgetUrl": "http://localhost:3000/callback",
   "cookieName": "gtoken"
 }
