@@ -5,34 +5,27 @@ import http = require('http');
 import cookieParser = require('cookie-parser');
 import db = require('./db');
 
-var port = 3003;
+var port = 3000;
 var app = express();
+var clientPath = __dirname.replace("server", "tracker");
+app.use('/node_modules', express.static(clientPath + '/node_modules'));
+app.use('/app', express.static(clientPath + '/app'));
 app.use(cookieParser());
 
 var gitkitConfig = JSON.parse(fs.readFileSync('./gitkit-server-config.json', 'utf-8'));
 gitkitConfig.serviceAccountPrivateKey = fs.readFileSync(gitkitConfig.pemFile, 'utf-8');
 var gitkitClient = new GitKitClient(gitkitConfig);
 
-// this is just a test to verify that Google Identity APIs are working
-var getAccountInfo = function() {
-  gitkitClient.downloadAccount(1, function(err, accounts) {
-    if (err) {
-      console.log(err);
-    } else if (accounts != null) {
-      for(var i = 0; i < accounts.length; i++) {
-        console.log(accounts[i]);
-      }
-    } else {
-      console.log("finished.");
-    }
-  });
-};
-//getAccountInfo();
-
 app.get('/', function (req, res) {
-  var gToken = req.cookies['gtoken'];
-  //console.log("gtoken: ", gToken);
-  res.send('habit-server responding.');
+  res.sendFile(clientPath + '/index.html');
+});
+
+app.get('/index.html', function(req, res) {
+  res.sendFile(clientPath + '/index.html');
+});
+
+app.get('/signin.html', function(req, res) {
+  res.sendFile(clientPath + '/signin.html');
 });
 
 app.get('/validateuser', function (req, res) {
@@ -41,13 +34,15 @@ app.get('/validateuser', function (req, res) {
   gitkitClient.verifyGitkitToken(gToken, function(err, response) {
     if(err) {
       console.log(err);
+      res.send({"valid": success});
     } else {
       console.log(response);
       // need to verify that the user exists in the mongodb
       success = true;
+      res.send({"valid": success});
     }
   });
-  res.send({"valid": success});
+  //res.header('Access-Control-Allow-Origin: http://localhost:3000');
 });
 
 app.listen(port, function () {
