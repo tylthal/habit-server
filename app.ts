@@ -36,8 +36,8 @@ app.get('/validateuser', function (req, res) {
       console.log(err);
       res.send({"valid": success});
     } else {
-      console.log(response);
-      // need to verify that the user exists in the mongodb
+      //console.log(response);
+      //TODO: need to verify that the user exists in the mongodb
       success = true;
       res.send({"valid": success});
     }
