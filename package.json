@@ -23,6 +23,7 @@
     "express": "^4.13.4",
     "gitkitclient": "0.0.6",
     "googleapis": "^4.0.0",
+    "mongodb": "^2.1.11",
     "typings": "^0.6.9"
   }
 }

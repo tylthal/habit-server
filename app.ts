@@ -12,6 +12,8 @@ app.use('/node_modules', express.static(clientPath + '/node_modules'));
 app.use('/app', express.static(clientPath + '/app'));
 app.use(cookieParser());
 
+var dB = new db.db();
+
 var gitkitConfig = JSON.parse(fs.readFileSync('./gitkit-server-config.json', 'utf-8'));
 gitkitConfig.serviceAccountPrivateKey = fs.readFileSync(gitkitConfig.pemFile, 'utf-8');
 var gitkitClient = new GitKitClient(gitkitConfig);
@@ -35,8 +37,9 @@ app.get('/validateuser', function (req, res) {
       console.log(err);
       res.send({"valid": false});
     } else {
-      //TODO: need to verify that the user exists in the mongodb
-      res.send({"valid": true, "userid": response.user_id});
+      dB.verifyUserInDb(response, function(result) {
+        res.send({"valid": result, "userid": response.user_id});
+      });
     }
   });
   //res.header('Access-Control-Allow-Origin: http://localhost:3000');
