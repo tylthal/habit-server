@@ -30,16 +30,13 @@ app.get('/signin.html', function(req, res) {
 
 app.get('/validateuser', function (req, res) {
   var gToken = req.cookies['gtoken'];
-  var success = false;
   gitkitClient.verifyGitkitToken(gToken, function(err, response) {
     if(err) {
       console.log(err);
-      res.send({"valid": success});
+      res.send({"valid": false});
     } else {
-      //console.log(response);
       //TODO: need to verify that the user exists in the mongodb
-      success = true;
-      res.send({"valid": success});
+      res.send({"valid": true, "userid": response.user_id});
     }
   });
   //res.header('Access-Control-Allow-Origin: http://localhost:3000');
