@@ -41,4 +41,28 @@ export class db {
       }
     });
   }
+
+  getCategories(user_id: string, callback: Function) {
+    var categories = this.db.collection('categories');
+    categories.find({"user_id": user_id}).toArray(function(err, docs) {
+      if(err) {
+        console.log(err.message);
+        callback(undefined);
+      } else {
+        callback(docs);
+      }
+    });
+  }
+
+  addCategory(user_id: string, name: string, description: string, callback: Function) {
+    var categories = this.db.collection('categories');
+    categories.insertOne({"user_id": user_id, "name":name,"description":description}, function(err, result) {
+      if(err) {
+        console.log(err.message);
+        callback(err, undefined);
+      } else {
+        callback(undefined, result.insertedId);
+      }
+    });
+  }
 }
